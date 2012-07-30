@@ -5,10 +5,6 @@
 
 
 @implementation IconController
-{
-    BOOL highlight;
-    BOOL newTalk;
-}
 
 - (void)setHighlight:(BOOL)aHighlight newTalk:(BOOL)aNewTalk
 {
@@ -23,7 +19,7 @@
     
     if (highlight || newTalk) {
         NSSize iconSize = icon.size;
-        NSImage* badge = highlight ? [NSImage imageNamed:@"redstar"] : [NSImage imageNamed:@"bluestar"];
+        NSImage* badge = highlight ? [NSImage imageNamed:@"redbadge"] : [NSImage imageNamed:@"bluebadge"];
         if (badge) {
             NSSize size = badge.size;
             int w = size.width;
