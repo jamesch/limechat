@@ -7,7 +7,7 @@ require 'pp'
 APP_SHORT_NAME = 'LimeChat'
 APP_NAME = APP_SHORT_NAME + '.app'
 ROOT_PATH = Pathname.new(__FILE__).dirname
-RELEASE_BUILD_PATH = ROOT_PATH + 'build/Release' + APP_NAME
+RELEASE_BUILD_PATH = ROOT_PATH + APP_NAME
 README_PATH = ROOT_PATH + 'README.txt'
 GPL_PATH = ROOT_PATH + 'GPL.txt'
 PACKAGES_PATH = ROOT_PATH + 'Packages'
@@ -37,7 +37,6 @@ task :install => [:clean, :build] do |t|
   sh "open /Applications/#{APP_NAME}"
 end
 
-#task :package => [:clean, :build, :package_app] do |t|
 task :package => [:package_app] do |t|
 end
 
@@ -85,7 +84,7 @@ task :appcast do |t|
 end
 
 task :web do |t|
-  rss_templates = ['rss.rxml', 'rss_ja.rxml']
+  rss_templates = ['rss.rxml']
   html_templates = []
   
   change_log = ''
@@ -93,7 +92,7 @@ task :web do |t|
   pubdate = ''
   
   s = File.open(APPCAST_PATH).read
-  if m = %r!<ul>.+</ul>!m.match(s)
+  if m = %r!<ul>.+?</ul>!m.match(s)
     change_log = m[0]
   end
   if m = %r!sparkle:version="([^"]+)"!m.match(s)
@@ -217,7 +216,7 @@ end
 
 module Util
   def app_version
-    file = ROOT_PATH + 'Others/Info.plist'
+    file = ROOT_PATH + 'Others/Normal/Info.plist'
     file.open do |f|
       next_line = false
       while s = f.gets
